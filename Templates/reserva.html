@@ -1,0 +1,110 @@
+{% extends 'Partials/_Base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block Titulo %}
+¡Haz tu pedido, crea tu pizza!
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+{% block content %}
+<style>
+  .div-imagen {
+  display:inline-block;
+  position:relative;
+}
+
+.div-imagen > div {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:-1;
+  padding:10px;
+  margin:0;
+}
+
+.desvanecer:hover {
+  opacity: 0.07;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  -ms-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+</style>
+
+<div class="container" style="overflow-y: scroll; height:400px;">
+    <div class="row">
+      {% for i in bicicletas %}
+      <div class="col-4">
+        <div class="div-imagen" style="display:block;      width: 100%;height: 100%;">
+          <div>
+            <p>{{i.Nombre}}</p>
+            <p>  Garantia: {{i.Monto_garantia}}</p>
+          </div>
+          <img style=" border: black 1px solid;" class="desvanecer" height="100%" width="100%" src="{% get_media_prefix %}{{i.Imagen}}"  />
+        </div>
+        <!--  -->
+      </div>
+      {% endfor %}
+
+  <!-- <div class="row">
+    <div class="col">
+      <img class="desvanecer" src="http://placehold.it/200x200" />
+
+    </div>
+    <div class="col">
+      <img class="desvanecer" src="http://placehold.it/200x200" />
+    </div>
+    <div class="col">
+      <img class="desvanecer" src="http://placehold.it/200x200" />
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <img class="desvanecer" src="http://placehold.it/200x200" />
+
+    </div>
+    <div class="col">
+      <img class="desvanecer" src="http://placehold.it/200x200" />
+    </div>
+    <div class="col">
+      <img class="desvanecer" src="http://placehold.it/200x200" />
+    </div>
+
+  </div> -->
+</div>
+<!-- <div style=" col-md-12 overflow-y: scroll; height:400px;">
+  <div class="col-md-4">
+
+  <div class="div-imagen">
+    <div>
+        Descripción de la foto que quieres que se muestre
+    </div>
+    <img class="desvanecer" src="http://placehold.it/200x200" />
+</div>
+</div>
+<div class="col-md-4">
+<div style="overflow-y: scroll; height:400px;">
+
+  <div class="div-imagen">
+    <div>
+        Descripción de la foto que quieres que se muestre
+    </div>
+    <img class="desvanecer" src="http://placehold.it/200x200" />
+</div>
+</div>
+{% for i in bicicletas %}
+  <div class="col-md-4 div imagen">
+
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="exampleRadios" id="{{i.pk}}" value="{{i.pk}}">
+      <img class = "desvanecer"height="200px" width="200px" id="img{{i.pk}}" src="{% get_media_prefix %}{{i.Imagen}}" alt="" title="Smiley face">
+
+  </div>
+  <p class="cost">{{i.Nombre}}</p>
+  </div> -->
+<!-- {% endfor %} -->
+<!-- </div> -->
+{% endblock %}

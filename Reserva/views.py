@@ -12,6 +12,13 @@ from django.http import JsonResponse
 # Create your views here.
 @login_required(login_url='/auth/login')
 def index(request):
-		data={}
-		template_name = "index_super_user.html"
-		return render(request, template_name,data)
+	data={}
+	template_name = "index_super_user.html"
+	return render(request, template_name,data)
+
+@login_required(login_url='/auth/login')
+def reservar_bici(request):
+	data={}
+	template_name = "reserva.html"
+	data["bicicletas"]=Bicicleta.objects.all()
+	return render(request, template_name,data)
