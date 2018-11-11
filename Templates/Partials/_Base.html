@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap4 %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -83,9 +84,36 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">Catalogo</a>
         </li>
-        <li class="nav-item active" href="{{request.user}}">
-          <a class="nav-link" href="{% url 'auth_login' %}">Iniciar sesion</a>
-        </li>
+        <li class="nav-item active" href="{{request.user}}"></li>
+          {% if inicio == 0 %}
+          <li class="nav-item active">
+           <a class="nav-link active" href="{% url 'auth_login' %}">Iniciar sesión</a>
+          </li>
+          {% endif %}
+          {% if inicio == 2  %}
+          <li class="nav-item active">
+              <a class="nav-link" href="#">Hola, {{request.user}}</a>
+          </li>
+          <li class="nav-item active">
+           <a class="nav-link active" href="{% url 'auth_logout' %}">Cerrar sesión</a>
+          </li>
+          {% endif %}
+          {% if inicio == 1  %}
+          <li class="nav-item active">
+              <a class="nav-link active" href="#">Hola, {{request.user}}</a>
+          </li>          
+          <li class="nav-item active">
+           <a class="nav-link active" href="{% url 'auth_logout' %}">Cerrar sesión</a>
+          </li>
+          {% endif %}
+          {% if inicio == 3  %}
+          <li class="nav-item active">
+              <a class="nav-link active" href="#">Hola, {{request.user}}</a>
+          </li>
+          <li class="nav-item active">
+           <a class="nav-link active" href="{% url 'auth_logout' %}">Cerrar sesión</a>
+          </li>
+          {% endif %}
       </ul>
     </div>
   </div>
