@@ -33,7 +33,9 @@
 }
 </style>
 
+<form id="form_reserva">
 <div class="container" style="overflow-y: scroll; height:400px;">
+
     <div class="row">
       {% for i in bicicletas %}
       <div class="col-4">
@@ -42,69 +44,38 @@
             <p>{{i.Nombre}}</p>
             <p>  Garantia: {{i.Monto_garantia}}</p>
           </div>
-          <img style=" border: black 1px solid;" class="desvanecer" height="100%" width="100%" src="{% get_media_prefix %}{{i.Imagen}}"  />
+
+          <img style=" border: black 1px solid;"  id="img{{i.pk}}"class="desvanecer" height="100%" width="100%" src="{% get_media_prefix %}{{i.Imagen}}"  />
+          <button type="button" class="btn btn-outline-primary" id={{i.pk}}>+</button> -->
+
         </div>
         <!--  -->
       </div>
       {% endfor %}
-
-  <!-- <div class="row">
-    <div class="col">
-      <img class="desvanecer" src="http://placehold.it/200x200" />
-
     </div>
-    <div class="col">
-      <img class="desvanecer" src="http://placehold.it/200x200" />
-    </div>
-    <div class="col">
-      <img class="desvanecer" src="http://placehold.it/200x200" />
-    </div>
-
-  </div>
-  <div class="row">
-    <div class="col">
-      <img class="desvanecer" src="http://placehold.it/200x200" />
-
-    </div>
-    <div class="col">
-      <img class="desvanecer" src="http://placehold.it/200x200" />
-    </div>
-    <div class="col">
-      <img class="desvanecer" src="http://placehold.it/200x200" />
-    </div>
-
-  </div> -->
 </div>
-<!-- <div style=" col-md-12 overflow-y: scroll; height:400px;">
-  <div class="col-md-4">
-
-  <div class="div-imagen">
-    <div>
-        Descripción de la foto que quieres que se muestre
-    </div>
-    <img class="desvanecer" src="http://placehold.it/200x200" />
+<div class="container row justify-content-md-center">
+  <button style="text-align: center;" type="submit" class=" col-md-12 btn btn-primary" onclick="location.href='{% url 'detalle_reserva' %}'">Continuar arriendo</button>
 </div>
-</div>
-<div class="col-md-4">
-<div style="overflow-y: scroll; height:400px;">
+</form>
 
-  <div class="div-imagen">
-    <div>
-        Descripción de la foto que quieres que se muestre
-    </div>
-    <img class="desvanecer" src="http://placehold.it/200x200" />
-</div>
-</div>
-{% for i in bicicletas %}
-  <div class="col-md-4 div imagen">
 
-  <div class="form-check">
-      <input class="form-check-input" type="radio" name="exampleRadios" id="{{i.pk}}" value="{{i.pk}}">
-      <img class = "desvanecer"height="200px" width="200px" id="img{{i.pk}}" src="{% get_media_prefix %}{{i.Imagen}}" alt="" title="Smiley face">
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+$( document ).ready(function() {
+    console.log( "document loaded" );
+    alert("HOLA");
 
-  </div>
-  <p class="cost">{{i.Nombre}}</p>
-  </div> -->
-<!-- {% endfor %} -->
-<!-- </div> -->
+    $( "#img2" ).click(function() {
+      alert( "Handler for .click() called." );
+    });
+});
+
+$( window ).on( "load", function() {
+    console.log( "window loaded" );
+});
+</script>
+
+sdfdsf
+
 {% endblock %}
