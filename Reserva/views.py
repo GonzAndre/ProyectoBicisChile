@@ -12,6 +12,7 @@ from django.http import JsonResponse
 # Create your views here.
 @login_required(login_url='/auth/login')
 def index(request):
+	print("hola")
 	data={}
 	template_name = "index_super_user.html"
 	return render(request, template_name,data)
@@ -27,4 +28,28 @@ def reservar_bici(request):
 def detalle_reserva(request):
 	data={}
 	template_name = "detalle_reserva.html"
+
+	if request.POST:
+		lista_obj = []
+		filtro = []
+		print("ASDASDASDA")
+		print(request.POST)
+		print(request.POST["list_ing"])
+		for i in request.POST["list_ing"].split(","):
+			if( i != ''):
+				filtro.append(i)
+		for i in filtro:
+			try:
+				obj = Ingredients.objects.get(code=i)
+				lista_obj.append(obj)
+			except:
+				raise
+		masa = Mass.objects.get(code = request.POST["mass"])
+
+		orden = Pizza(type_mass=masa)
+		orden.save()
+		for i in lista_obj:
+			orden.Ingredient.add(i)
+
+		price = request.POST["price"]
 	return render(request, template_name,data)
