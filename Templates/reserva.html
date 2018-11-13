@@ -31,6 +31,12 @@
   -ms-transition: opacity 500ms;
   transition: opacity 500ms;
 }
+.check
+{
+    opacity:0.5;
+	color:#996;
+
+}
 </style>
 
 <form id="form_reserva">
@@ -53,9 +59,11 @@
       {% endfor %}
     </div>
 </div>
+<hr style="width:75%;">
+
 <div class="container row justify-content-md-center" id="informacion_bicis">
 </div>
-<button style="text-align: center;margin:2%;" type="submit" class=" col-md-12 btn btn-primary" onclick="location.href='{% url 'detalle_reserva' %}'">Continuar arriendo</button>
+<button style="text-align: center;margin:2%;" type="submit" class=" col-md-11 btn btn-primary" onclick="location.href='{% url 'detalle_reserva' %}'">Continuar arriendo</button>
 </form>
 
 
