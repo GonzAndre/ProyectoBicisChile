@@ -72,6 +72,7 @@
 <script>
 $( document ).ready(function() {
     list_ing = ['2','3']
+    list_bicis =[]
     console.log( "document loaded" );
     // alert("HOLA");
     {% for i in bicicletas %}
@@ -86,6 +87,7 @@ $( document ).ready(function() {
       }else {
       $( "#informacion_bicis" ).append( "<div id= 'bici{{i.pk}}'><img style=' border: black 1px solid;'  id='bici{{i.pk}} height='10%' width='10%' src='{% get_media_prefix %}{{i.Imagen}}'  /> <label for='user_lic'>{{i.Nombre}} <br> Garantia: {{i.Monto_garantia}} <br>Cantidad a arrendar: </label><input  type='number' min='1' max={{i.Stock}} step='1' /></div>" );
       $(this).toggleClass("check");
+      list_bicis.push("{{i.pk}}")
     }});
     {% endfor %}
     // cierre principal
@@ -124,8 +126,7 @@ $( document ).ready(function() {
       }
       // alert(mass);
 
-      var x = document.cookie;
-      document.cookie = "username=John Doe";
+      setCookie("caca",list_bicis,30)
 
     $.ajax({
         url: "{% url 'reservar_bici' %}",
