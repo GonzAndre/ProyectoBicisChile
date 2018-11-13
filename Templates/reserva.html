@@ -90,21 +90,23 @@ $( document ).ready(function() {
     {% endfor %}
     // cierre principal
     });
-    function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-    }
+    // function getCookie(name) {
+    // var cookieValue = null;
+    // if (document.cookie && document.cookie !== '') {
+    //     var cookies = document.cookie.split(';');
+    //     for (var i = 0; i < cookies.length; i++) {
+    //         var cookie = jQuery.trim(cookies[i]);
+    //         // Does this cookie string begin with the name we want?
+    //         if (cookie.substring(0, name.length + 1) === (name + '=')) {
+    //             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+    //             break;
+    //         }
+    //     }
+    // }
+    // return cookieValue;
+    // }
+
+
 
     $('#form_reserva').submit(function(){
     alert("holis");
@@ -121,6 +123,10 @@ $( document ).ready(function() {
       a = a + 1
       }
       // alert(mass);
+
+      var x = document.cookie;
+      document.cookie = "username=John Doe";
+
     $.ajax({
         url: "{% url 'reservar_bici' %}",
         type: "POST",
