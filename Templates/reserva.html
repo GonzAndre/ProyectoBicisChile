@@ -46,7 +46,6 @@
           </div>
 
           <img style=" border: black 1px solid;"  id="img{{i.pk}}"class="desvanecer" height="100%" width="100%" src="{% get_media_prefix %}{{i.Imagen}}"  />
-          <button type="button" class="btn btn-outline-primary" id={{i.pk}}>+</button> -->
 
         </div>
         <!--  -->
@@ -55,6 +54,7 @@
     </div>
 </div>
 <div class="container row justify-content-md-center">
+  dsads
   <button style="text-align: center;" type="submit" class=" col-md-12 btn btn-primary" onclick="location.href='{% url 'detalle_reserva' %}'">Continuar arriendo</button>
 </div>
 </form>
@@ -64,11 +64,13 @@
 <script>
 $( document ).ready(function() {
     console.log( "document loaded" );
-    alert("HOLA");
-
-    $( "#img2" ).click(function() {
-      alert( "Handler for .click() called." );
+    // alert("HOLA");
+    {% for i in bicicletas %}
+    $( "#img{{i.pk}}" ).click(function() {
+      alert( "{{i.pk}}" );
     });
+    {% endfor %}
+
 });
 
 $( window ).on( "load", function() {

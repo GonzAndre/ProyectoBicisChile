@@ -12,7 +12,8 @@ class Bicicleta(models.Model):
     Codigo =  models.CharField(max_length=120)
     Monto_garantia = models.PositiveIntegerField()
     Imagen = models.ImageField(upload_to='image')
-    
+    Stock = models.PositiveIntegerField(default=1)
+
 class Cliente(models.Model):
     Nombre = models.CharField(max_length=120)
     Fecha_nacimiento = models.DateField()
@@ -22,6 +23,6 @@ class Cliente(models.Model):
 
     rut = models.CharField(max_length=8)
     dv = models.PositiveIntegerField()
-    
+
 class Reserva(models.Model):
     pass
