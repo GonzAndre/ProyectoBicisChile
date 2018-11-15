@@ -29,27 +29,30 @@ def detalle_reserva(request):
 	data={}
 	template_name = "detalle_reserva.html"
 
-	if request.POST:
-		lista_obj = []
-		filtro = []
-		print("ASDASDASDA")
-		print(request.POST)
-		print(request.POST["list_ing"])
-		for i in request.POST["list_ing"].split(","):
-			if( i != ''):
-				filtro.append(i)
-		for i in filtro:
-			try:
-				obj = Ingredients.objects.get(code=i)
-				lista_obj.append(obj)
-			except:
-				raise
-		masa = Mass.objects.get(code = request.POST["mass"])
-
-		orden = Pizza(type_mass=masa)
-		orden.save()
-		for i in lista_obj:
-			orden.Ingredient.add(i)
-
-		price = request.POST["price"]
+	sucursales = Sucursal.objects.all()
+	data['sucursales'] = sucursales
+	print (data)
+	# if request.POST:
+	# 	lista_obj = []
+	# 	filtro = []
+	# 	print("ASDASDASDA")
+	# 	print(request.POST)
+	# 	print(request.POST["list_ing"])
+	# 	for i in request.POST["list_ing"].split(","):
+	# 		if( i != ''):
+	# 			filtro.append(i)
+	# 	for i in filtro:
+	# 		try:
+	# 			obj = Ingredients.objects.get(code=i)
+	# 			lista_obj.append(obj)
+	# 		except:
+	# 			raise
+	# 	masa = Mass.objects.get(code = request.POST["mass"])
+	#
+	# 	orden = Pizza(type_mass=masa)
+	# 	orden.save()
+	# 	for i in lista_obj:
+	# 		orden.Ingredient.add(i)
+	#
+	# 	price = request.POST["price"]
 	return render(request, template_name,data)
