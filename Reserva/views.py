@@ -32,6 +32,8 @@ def detalle_reserva(request):
 	sucursales = Sucursal.objects.all()
 	data['sucursales'] = sucursales
 	print (data)
+	if (request.POST):
+		print(request.POST)
 	# if request.POST:
 	# 	lista_obj = []
 	# 	filtro = []

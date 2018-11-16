@@ -117,12 +117,12 @@ $( document ).ready(function() {
     }
     // alert(mass);
 
-    setCookie("bicis","lfds",30)
 
   $.ajax({
-      url: "{% url 'reservar_bici' %}",
+      url: "{% url 'detalle_reserva' %}",
       type: "POST",
       data: {
+          'bicis':String(bicis),
           'fecha_retiro':String(fecha_retiro),
           'fecha_entrega':String(fecha_entrega),
           'csrfmiddlewaretoken': getCookie('csrftoken'),
