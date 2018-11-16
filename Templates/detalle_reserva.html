@@ -22,20 +22,21 @@
       <div class="form-group row">
         <label for="example-datetime-local-input" class="col-5 col-form-label">Fecha y hora de retiro</label>
         <div class="col-7  ">
-          <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+          <input  required class="form-control" type="datetime-local" id="fecha_retiro">
         </div>
       </div>
 
         <div class="form-group row">
           <label for="example-datetime-local-input" class="col-5 col-form-label">Fecha y hora de entrega</label>
           <div class="col-7  ">
-            <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+            <input required class="form-control" type="datetime-local"  id="fecha_entrega">
           </div>
         </div>
       <div class="form-group row">
         <label for="exampleFormControlSelect1" class="col-5 col-form-label">Sucursal</label>
         <div class="col-7  ">
-          <select class="form-control" id="exampleFormControlSelect1">
+          <select required class="form-control" id="exampleFormControlSelect1">
+            <option value=""></option>
             {% for i in sucursales %}
             <option>{{i.Nombre}}</option>
 
@@ -104,7 +105,7 @@
                     </div>
                     <!--  -->
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                       <label class="form-check-label" for="defaultCheck1">
                         Acepto los terminos y condiciones
                       </label>
@@ -114,7 +115,7 @@
                 </div>
                 <div role="tabpanel" id="tab-2" class="tab-pane">
                     <div class="panel-body">
-                      asd
+
                         <!-- <strong>Donec quam felis</strong>
 
                         <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
@@ -130,14 +131,52 @@
         </div>
     </div>
     <!-- </div> -->
+    <button style="text-align: center;margin:2%;" type="submit" class=" col-md-11 btn btn-primary">Realizar reserva</button>
+
 </form>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <script>
 $( document ).ready(function() {
   // alert("hola");
-  alert(getCookie('caca'));
-  console.log("{% csrf_token %}");
+  alert(getCookie('bicis'));
+  bicis = getCookie('bicis');
+  alert(bicis);
+  // console.log("{% csrf_token %}");
+  $('#form_detalle_reserva').submit(function(){
+  // alert("holis");
+  var a = 0;
+  var i = true;
+  while(i){
+    if($(".form-check-input")[a] != undefined ){
+      if($(".form-check-input")[a].checked){
+        var mass = $(".form-check-input")[a].id;
+      }
+    }else{
+      i = false;
+    }
+    a = a + 1
+    }
+    // alert(mass);
+
+    setCookie("bicis",list_bicis,30)
+
+  $.ajax({
+      url: "{% url 'reservar_bici' %}",
+      type: "POST",
+      data: {
+          'list_ing': String(list_ing),
+          'csrfmiddlewaretoken': getCookie('csrftoken'),
+      },
+      success: function (data) {
+          console.log(data);
+          // alert("calmao washo");
+          window.location.href = "{% url 'detalle_reserva' %}";
+
+      },
+    });
+  return false;
+  });
 });
 </script>
 sdfdsf

@@ -122,13 +122,13 @@
     }
 
     function checkCookie() {
-        var user=getCookie("username");
+        var user="daniel";
         if (user != "") {
             // alert("Welcome again " + user);
         } else {
            user = prompt("Please enter your name:","");
            if (user != "" && user != null) {
-               setCookie("username", user, 30);
+               setCookie("username", 'daniel', 30);
            }
         }
     }

@@ -64,7 +64,7 @@
 <div class="container row justify-content-md-center" id="informacion_bicis">
 </div>
  <!-- onclick="location.href='{% url 'detalle_reserva' %}' -->
-<button style="text-align: center;margin:2%;" type="submit" class=" col-md-11 btn btn-primary">Continuar arriendo</button>
+<button style="text-align: center;margin:2%;" type="submit" class=" col-md-11 btn btn-primary">Continuar con la reserva</button>
 </form>
 
 
@@ -84,8 +84,10 @@ $( document ).ready(function() {
         $("#img{{i.pk}}").removeClass("check");
         // alert("#img{{i.pk}}"  );
         $("#bici{{i.pk}}").remove();
+        list_bicis.pop();
+
       }else {
-      $( "#informacion_bicis" ).append( "<div id= 'bici{{i.pk}}'><img style=' border: black 1px solid;'  id='bici{{i.pk}} height='10%' width='10%' src='{% get_media_prefix %}{{i.Imagen}}'  /> <label for='user_lic'>{{i.Nombre}} <br> Garantia: {{i.Monto_garantia}} <br>Cantidad a arrendar: </label><input  type='number' min='1' max={{i.Stock}} step='1' /></div>" );
+      $( "#informacion_bicis" ).append( "<div id= 'bici{{i.pk}}'><img style=' border: black 1px solid;'  id='bici{{i.pk}} height='10%' width='10%' src='{% get_media_prefix %}{{i.Imagen}}'  /> <label for='user_lic'>{{i.Nombre}} <br> Garantia: {{i.Monto_garantia}} <br>Cantidad a arrendar: </label><input  type='number' min='1' max={{i.Stock}} step='1' value='1' /></div>" );
       $(this).toggleClass("check");
       list_bicis.push("{{i.pk}}")
     }});
@@ -111,7 +113,7 @@ $( document ).ready(function() {
 
 
     $('#form_reserva').submit(function(){
-    alert("holis");
+    // alert("holis");
     var a = 0;
     var i = true;
     while(i){
@@ -126,7 +128,7 @@ $( document ).ready(function() {
       }
       // alert(mass);
 
-      setCookie("caca",list_bicis,30)
+      setCookie("bicis",list_bicis,30)
 
     $.ajax({
         url: "{% url 'reservar_bici' %}",
@@ -137,31 +139,14 @@ $( document ).ready(function() {
         },
         success: function (data) {
             console.log(data);
-            alert("calmao washo");
+            // alert("calmao washo");
             window.location.href = "{% url 'detalle_reserva' %}";
 
         },
       });
     return false;
     });
-//     $('#form_reserva').submit(function(){
-//       Alert("xddd");
-//     });
-//
-//     $.ajax({
-//
-//     url: "{% url 'index' %}",
-//     type: "POST",
-//     data: {
-//         'list_ing': String("asd"),
-//         'csrfmiddlewaretoken': getCookie('csrftoken'),
-//     },
-//     success: function (data) {
-//         window.location.href = "{% url 'detalle_reserva' %}";
-//
-//     },
-//     // cierre de ajax
-// });
+
 
 </script>
 
