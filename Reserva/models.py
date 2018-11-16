@@ -34,6 +34,7 @@ class Tarjeta_credito(models.Model):
     Fecha_vencimiento = models.DateField()
 
 class Reserva(models.Model):
+    User = models.ForeignKey(User,on_delete=models.CASCADE,related_name='%(class)s_user')
     Fecha_arriendo_inicial = models.DateField()
     Hora_arriendo_inicial = models.TimeField()
     Fecha_arriendo_final = models.DateField()

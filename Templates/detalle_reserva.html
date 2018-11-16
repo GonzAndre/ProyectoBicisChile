@@ -33,12 +33,25 @@
           </div>
         </div>
       <div class="form-group row">
-        <label for="exampleFormControlSelect1" class="col-5 col-form-label">Sucursal</label>
+        <label for="exampleFormControlSelect1" class="col-5 col-form-label">Sucursal retiro</label>
         <div class="col-7  ">
-          <select  class="form-control" id="exampleFormControlSelect1">
+          <select  class="form-control" id="sucursal_retiro">
             <option value=""></option>
             {% for i in sucursales %}
-            <option>{{i.Nombre}}</option>
+            <option value="{{i.pk}}">{{i.Nombre}}</option>
+
+            {% endfor %}
+
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="exampleFormControlSelect1" class="col-5 col-form-label">Sucursal entrega</label>
+        <div class="col-7  ">
+          <select  class="form-control" id="sucursal_entrega">
+            <option ></option>
+            {% for i in sucursales %}
+            <option value="{{i.pk}}">{{i.Nombre}}</option>
 
             {% endfor %}
 
@@ -84,15 +97,21 @@
 
 <script>
 $( document ).ready(function() {
+  alert({{user.pk}});
+
   // alert("hola");
   // alert(getCookie('bicis'));
   bicis = getCookie('bicis');
   // alert(bicis);
   // console.log("{% csrf_token %}");
   $('#form_detalle_reserva').submit(function(){
-  alert("holis");
+  alert("holsa");
   var fecha_retiro=$('#fecha_retiro').val().split('-');
   var fecha_entrega=$('#fecha_entrega').val().split('-');
+  var sucursal_retiro=$('#sucursal_retiro').val();
+  var sucursal_entrega=$('#sucursal_entrega').val();
+  alert('RETIRO'+sucursal_retiro);
+  alert('ENTREGA'+sucursal_entrega);
   // var anho_retiro = fecha[0];
   // var mes_retiro = fecha[1];
   // var aux_dia_retiro = fecha[2].split('T');
@@ -117,7 +136,6 @@ $( document ).ready(function() {
     }
     // alert(mass);
 
-
   $.ajax({
       url: "{% url 'detalle_reserva' %}",
       type: "POST",
@@ -125,6 +143,8 @@ $( document ).ready(function() {
           'bicis':String(bicis),
           'fecha_retiro':String(fecha_retiro),
           'fecha_entrega':String(fecha_entrega),
+          'sucursal_retiro': String(sucursal_retiro),
+          'sucursal_entrega': String(sucursal_entrega),
           'csrfmiddlewaretoken': getCookie('csrftoken'),
       },
       success: function (data) {

@@ -33,7 +33,9 @@ def detalle_reserva(request):
 	data['sucursales'] = sucursales
 	print (data)
 	if (request.POST):
-		print(request.POST)
+		bicis_stock = request.POST['bicis']
+		fecha_retiro = request.POST['fecha_retiro']
+		fecha_entrega = request.POST['fecha_retiro']
 	# if request.POST:
 	# 	lista_obj = []
 	# 	filtro = []
