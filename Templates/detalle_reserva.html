@@ -22,20 +22,20 @@
       <div class="form-group row">
         <label for="example-datetime-local-input" class="col-5 col-form-label">Fecha y hora de retiro</label>
         <div class="col-7  ">
-          <input  required class="form-control" type="datetime-local" id="fecha_retiro">
+          <input  required class="form-control" type="datetime-local" id="fecha_retiro" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
         </div>
       </div>
 
         <div class="form-group row">
           <label for="example-datetime-local-input" class="col-5 col-form-label">Fecha y hora de entrega</label>
           <div class="col-7  ">
-            <input required class="form-control" type="datetime-local"  id="fecha_entrega">
+            <input class="form-control" type="datetime-local"  id="fecha_entrega" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
           </div>
         </div>
       <div class="form-group row">
         <label for="exampleFormControlSelect1" class="col-5 col-form-label">Sucursal</label>
         <div class="col-7  ">
-          <select required class="form-control" id="exampleFormControlSelect1">
+          <select  class="form-control" id="exampleFormControlSelect1">
             <option value=""></option>
             {% for i in sucursales %}
             <option>{{i.Nombre}}</option>
@@ -66,71 +66,17 @@
       </div>
 
 <!-- fin div row -->
+    <div class="form-check">
+      <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+      <label class="form-check-label" for="defaultCheck1">
+        Acepto los terminos y condiciones
+      </label>
     </div>
-    <!-- <div class="col"> -->
-      <div class="col-lg-6">
-        <div class="tabs-container">
-            <ul class="nav nav-tabs" role="tablist">
-                <li><a class="nav-link active show" data-toggle="tab" href="#tab-1"> Tarjeta de credito</a></li>
-                <li><a class="nav-link" data-toggle="tab" href="#tab-2">Webpay</a></li>
-            </ul>
-            <div class="tab-content">
-                <div role="tabpanel" id="tab-1" class="tab-pane active show">
-                    <div class="panel-body">
-                      <!-- INICIO -->
-                      <div class="form-group row">
-                        <label for="staticEmail" class="col-sm-6 col-form-label">Nombre</label>
-                        <div class="col-sm-6">
-                          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-                        </div>
-                      </div>
-<!--  -->
-                      <div class="form-group row">
 
-                        <label for="staticEmail" class="col-sm-6 col-form-label">Numero</label>
-                        <div class="col-sm-6">
-                          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-                        </div>
-                      </div>
-
-                    </div>
-                    <!--  -->
-                    <div class="form-group row">
-
-                      <label for="staticEmail" class="col-sm-6 col-form-label">Fecha vencimiento</label>
-                      <div class="col-sm-6">
-                        <input class="form-control" type="month" name="mes">
-
-                      </div>
-                    </div>
-                    <!--  -->
-                    <div class="form-check">
-                      <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      <label class="form-check-label" for="defaultCheck1">
-                        Acepto los terminos y condiciones
-                      </label>
-                    </div>
-                      <!-- TERMINO -->
-                    </div>
-                </div>
-                <div role="tabpanel" id="tab-2" class="tab-pane">
-                    <div class="panel-body">
-
-                        <!-- <strong>Donec quam felis</strong>
-
-                        <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                            and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
-
-                        <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                            sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p> -->
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
     </div>
-    <!-- </div> -->
+    <div class="col">
+
+    </div>
     <button style="text-align: center;margin:2%;" type="submit" class=" col-md-11 btn btn-primary">Realizar reserva</button>
 
 </form>
@@ -139,12 +85,24 @@
 <script>
 $( document ).ready(function() {
   // alert("hola");
-  alert(getCookie('bicis'));
+  // alert(getCookie('bicis'));
   bicis = getCookie('bicis');
-  alert(bicis);
+  // alert(bicis);
   // console.log("{% csrf_token %}");
   $('#form_detalle_reserva').submit(function(){
-  // alert("holis");
+  alert("holis");
+  var fecha_retiro=$('#fecha_retiro').val().split('-');
+  var fecha_entrega=$('#fecha_entrega').val().split('-');
+  // var anho_retiro = fecha[0];
+  // var mes_retiro = fecha[1];
+  // var aux_dia_retiro = fecha[2].split('T');
+  // var dia_retiro = aux_dia_retiro[0];
+  // var hora_retiro = aux_hora_retiro[1];
+  //
+  // alert('anho' +anho_retiro);
+  // alert('mes' +mes_retiro);
+  // alert('dia'+ dia_retiro);
+  // alert('dia'+ hora_retiro);
   var a = 0;
   var i = true;
   while(i){
@@ -159,19 +117,21 @@ $( document ).ready(function() {
     }
     // alert(mass);
 
-    setCookie("bicis",list_bicis,30)
+    setCookie("bicis","lfds",30)
 
   $.ajax({
       url: "{% url 'reservar_bici' %}",
       type: "POST",
       data: {
-          'list_ing': String(list_ing),
+          'fecha_retiro':String(fecha_retiro),
+          'fecha_entrega':String(fecha_entrega),
           'csrfmiddlewaretoken': getCookie('csrftoken'),
       },
       success: function (data) {
           console.log(data);
           // alert("calmao washo");
-          window.location.href = "{% url 'detalle_reserva' %}";
+          alert("reserva de bicicleta realizada exitosamente :D");
+          window.location.href = "{% url 'index' %}";
 
       },
     });
