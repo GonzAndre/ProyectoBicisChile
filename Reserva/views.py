@@ -31,6 +31,7 @@ def detalle_reserva(request):
 
 	sucursales = Sucursal.objects.all()
 	data['sucursales'] = sucursales
+	data['tarjetas'] = Tarjeta_credito.objects.get()
 	# print (data)
 	# print("user: " + str(request.user.pk))
 	if (request.POST):

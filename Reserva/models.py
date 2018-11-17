@@ -29,6 +29,8 @@ class Sucursal(models.Model):
     Direccion = models.CharField(max_length=100)
 
 class Tarjeta_credito(models.Model):
+    User = models.ForeignKey(User,on_delete=models.CASCADE,related_name='%(class)s_user')
+
     Nombre = models.CharField(max_length=25)
     Numero_tarjeta_redito = models.CharField(max_length=19)
     Fecha_vencimiento = models.DateField()
