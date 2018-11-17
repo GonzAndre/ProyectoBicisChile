@@ -35,10 +35,13 @@ def detalle_reserva(request):
 	# print("user: " + str(request.user.pk))
 	if (request.POST):
 		bicis_stock = request.POST['bicis']
+		sucursal_retiro = request.POST['sucursal_retiro']
+		sucursal_entrega = request.POST['sucursal_entrega']
 		fecha_retiro = request.POST['fecha_retiro']
 		cont = 0
 		fecha_retiro_final=""
 		hora_retiro_final=""
+
 		#haciendo formato de bd retiro
 		for i in fecha_retiro.split(","):
 			print("fecha retiro: " + i)
@@ -58,9 +61,6 @@ def detalle_reserva(request):
 						hora_retiro_final = hora_retiro_final + n
 		print("fecha retiro final: " +fecha_retiro_final)
 		print("hora retiro final: " +hora_retiro_final)
-
-
-
 
 		fecha_entrega = request.POST['fecha_entrega']
 		cont = 0
@@ -85,8 +85,17 @@ def detalle_reserva(request):
 						hora_entrega_final = hora_entrega_final + n
 		print("fecha entrega final: " +fecha_entrega_final)
 		print("hora entrega final: " +hora_entrega_final)
-		# sucursal = Sucursal(request.user.pk)
-
+		user = User.objects.get(pk=request.user.pk)
+		sucursal_inicio = Sucursal.objects.get(pk=sucursal_retiro)
+		sucursal_final = Sucursal.objects.get(pk=sucursal_entrega)
+		reserva = Reserva(User = user, Fecha_arriendo_inicial = fecha_retiro_final, Hora_arriendo_inicial = hora_retiro_final, Fecha_arriendo_final= fecha_entrega_final, Hora_arriendo_final= hora_entrega_final, Sucursal_inicio = sucursal_inicio, Sucursal_fin = sucursal_final)
+		reserva.save()
+		bicis_stock = bicis_stock.split(",")
+		# stock - PK
+		# hay que crear el detalle
+		print(bicis_stock)
+		for i in bicis_stock:
+			print("I: " +i)
 		# class Reserva(models.Model):
 		#     User = models.ForeignKey(User,on_delete=models.CASCADE,related_name='%(class)s_user')
 		#     Fecha_arriendo_inicial = models.DateField()
