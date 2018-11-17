@@ -45,4 +45,4 @@ class Reserva(models.Model):
 class Detalles_reserva(models.Model):
     Cantidad = models.PositiveIntegerField()
     Bicicleta = models.ForeignKey(Bicicleta, on_delete=models.CASCADE)
-    Reserva = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
+    Reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)

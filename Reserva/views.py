@@ -94,17 +94,34 @@ def detalle_reserva(request):
 		# stock - PK
 		# hay que crear el detalle
 		print(bicis_stock)
+		print ("PK: "+ str(reserva.pk))
+
 		for i in bicis_stock:
 			print("I: " +i)
-		# class Reserva(models.Model):
-		#     User = models.ForeignKey(User,on_delete=models.CASCADE,related_name='%(class)s_user')
-		#     Fecha_arriendo_inicial = models.DateField()
-		#     Hora_arriendo_inicial = models.TimeField()
-		#     Fecha_arriendo_final = models.DateField()
-		#     Hora_arriendo_final = models.TimeField()
-		#     Sucursal_inicio = models.ForeignKey(Sucursal, on_delete=models.CASCADE,related_name='%(class)s_inicio')
-		#     Sucursal_fin = models.ForeignKey(Sucursal, on_delete=models.CASCADE,related_name='%(class)s_fin')
+			cont = 0
+			cantidad = 0
+			pk_bici = 0
+			for n in i.split("-"):
+				print ("N: "+n)
+				if(cont == 0):
+					cantidad = n
+					cont = cont + 1
+				else:
+					pk_bici = n
+					print("PK BICI: "+pk_bici)
+					bicicleta = Bicicleta.objects.get(pk=pk_bici)
+					detalle = Detalles_reserva(Cantidad = cantidad, Bicicleta = bicicleta, Reserva = reserva)
+					detalle.save()
 
+
+
+
+
+		# class Detalles_reserva(models.Model):
+		#     Cantidad = models.PositiveIntegerField()
+		#     Bicicleta = models.ForeignKey(Bicicleta, on_delete=models.CASCADE)
+		#     Reserva = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
+		#
 	# if request.POST:
 	# 	lista_obj = []
 	# 	filtro = []
