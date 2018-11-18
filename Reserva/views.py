@@ -29,6 +29,7 @@ def detalle_reserva(request):
 	data={}
 	template_name = "detalle_reserva.html"
 
+	data["accesorios"]=Accesorio.objects.all()
 	sucursales = Sucursal.objects.all()
 	data['sucursales'] = sucursales
 	data['tarjetas'] = Tarjeta_credito.objects.get()

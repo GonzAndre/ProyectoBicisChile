@@ -57,26 +57,16 @@
     <!-- check buttons -->
     <div class="container">
       Seleccione si necesita accesorios extras
-
+      {% for i in accesorios %}
       <div class="form-check">
 
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+        <input class="form-check-input" type="checkbox" value="{{i.pk}}" id="Accesorio{{i.pk}}">
         <label class="form-check-label" for="defaultCheck1">
-          Casco
+          {{i.Nombre}}
         </label>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-        <label class="form-check-label" for="defaultCheck1">
-          Rodilleras
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-        <label class="form-check-label" for="defaultCheck1">
-          Coderas
-        </label>
-      </div>
+      {% endfor %}
+
     </div>
 <!-- fin div row -->
 
@@ -85,7 +75,7 @@
     <div class="col">
         <center>Abonar garantia</center>
         <hr>
-        <div>
+        <div style="text-align: center;margin:2%;">
             <button type="button" class="btn btn-primary active" id="tarjeta_credito">Tarjeta de credito</button>
             <button type="button" class="btn btn-primary " id ="webpay">Webpay</button>
         </div>
@@ -131,14 +121,41 @@ $( document ).ready(function() {
   bicis = getCookie('bicis');
   // alert(bicis);
   // console.log("{% csrf_token %}");
+  list_accesorios = []
+  {% for i in accesorios %}
+  $( "#Accesorio{{i.pk}}" ).click(function() {
+    // alert( "{{i.pk}}" );
+    // var nombreClase = document.getElementById("#Accesorio{{i.pk}}").className
+    if( $("#{{i.pk}}").hasClass('check')){
+      // alert("CHECKKKK");
+      $("#Accesorio{{i.pk}}").removeClass("check");
+      // alert("#Accesorio{{i.pk}}"  );
+      $("#div{{i.pk}}").remove();
+      list_accesorios.pop();
+    }else {
+    $( "#informacion_bicis" ).append( "<div id='div{{i.pk}}'><Accesorio style=' border: black 1px solid;'  id='bici{{i.pk}} height='10%' width='10%' src='{% get_media_prefix %}{{i.Imagen}}'  /> <label for='user_lic'>{{i.Nombre}} <br> Stock disponible: {{i.Stock}} <br>Cantidad a arrendar: </label><input id= 'bici{{i.pk}}' type='number' min='1' max={{i.Stock}} step='1' value='1' /></div>" );
+    $(this).toggleClass("check");
+    list_accesorios.push("{{i.pk}}")
+  }
+});
+  {% endfor %}
   $('#form_detalle_reserva').submit(function(){
+    alert(list_accesorios);
   // alert("holsa");
+  // {% for i in accesorios %}
+  // var a = $('#Accesorio{{i.pk}}').val()
+  // if (a != undefined){
+  //   alert(a);
+  //   list_accesorios.push("{{i.pk}}");
+  // }
+
+  {% endfor %}
   var fecha_retiro=$('#fecha_retiro').val().split('-');
   var fecha_entrega=$('#fecha_entrega').val().split('-');
   var sucursal_retiro=$('#sucursal_retiro').val();
   var sucursal_entrega=$('#sucursal_entrega').val();
   // alert('RETIRO'+sucursal_retiro);
-  alert('ENTREGA'+sucursal_entrega);
+  // alert('ENTREGA'+sucursal_entrega);
   // var anho_retiro = fecha[0];
   // var mes_retiro = fecha[1];
   // var aux_dia_retiro = fecha[2].split('T');

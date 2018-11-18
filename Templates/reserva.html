@@ -83,11 +83,11 @@ $( document ).ready(function() {
         // alert("CHECKKKK");
         $("#img{{i.pk}}").removeClass("check");
         // alert("#img{{i.pk}}"  );
-        $("#bici{{i.pk}}").remove();
+        $("#div{{i.pk}}").remove();
         list_bicis.pop();
 
       }else {
-      $( "#informacion_bicis" ).append( "<div ><img style=' border: black 1px solid;'  id='bici{{i.pk}} height='10%' width='10%' src='{% get_media_prefix %}{{i.Imagen}}'  /> <label for='user_lic'>{{i.Nombre}} <br> Stock disponible: {{i.Stock}} <br>Cantidad a arrendar: </label><input id= 'bici{{i.pk}}' type='number' min='1' max={{i.Stock}} step='1' value='1' /></div>" );
+      $( "#informacion_bicis" ).append( "<div id='div{{i.pk}}'><img style=' border: black 1px solid;'  id='bici{{i.pk}} height='10%' width='10%' src='{% get_media_prefix %}{{i.Imagen}}'  /> <label for='user_lic'>{{i.Nombre}} <br> Stock disponible: {{i.Stock}} <br>Cantidad a arrendar: </label><input id= 'bici{{i.pk}}' type='number' min='1' max={{i.Stock}} step='1' value='1' /></div>" );
       $(this).toggleClass("check");
       list_bicis.push("{{i.pk}}")
     }
@@ -128,7 +128,7 @@ $( document ).ready(function() {
     // alert("hola");
 
     {% endfor %}
-    alert(list_bicis_stock);
+    // alert(list_bicis_stock);
     // alert("holis");
     var a = 0;
     var i = true;
@@ -150,7 +150,6 @@ $( document ).ready(function() {
         url: "{% url 'reservar_bici' %}",
         type: "POST",
         data: {
-            'list_ing': String(list_ing),
             'csrfmiddlewaretoken': getCookie('csrftoken'),
         },
         success: function (data) {

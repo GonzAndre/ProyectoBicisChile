@@ -48,3 +48,11 @@ class Detalles_reserva(models.Model):
     Cantidad = models.PositiveIntegerField()
     Bicicleta = models.ForeignKey(Bicicleta, on_delete=models.CASCADE)
     Reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
+
+class Accesorio(models.Model):
+    Nombre = models.CharField(max_length=120)
+    Valor = models.PositiveIntegerField()
+
+class Detalles_accesorios(models.Model):
+    Reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
+    Accesorio = models.ForeignKey(Accesorio, on_delete=models.CASCADE)

@@ -30,3 +30,18 @@ class Reserva(admin.ModelAdmin):
 @admin.register(Detalles_reserva)
 class Detalles_reservaAdmin(admin.ModelAdmin):
     list_display = ('Cantidad','Bicicleta','Reserva',)
+
+@admin.register(Accesorio)
+class AccesorioAdmin(admin.ModelAdmin):
+    list_display = ('Nombre','Valor',)
+@admin.register(Detalles_accesorios)
+class Detalles_accesorioAdmin(admin.ModelAdmin):
+    list_display = ('Reserva','Accesorio',)
+
+    # class Accesorio(models.Model):
+    #     Nombre = models.CharField(max_length=120)
+    #     Valor = models.PositiveIntegerField()
+    #
+    # class Detalles_accesorios(models.Model):
+    #     Reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
+    #     Accesorio = models.ForeignKey(Accesorio, on_delete=models.CASCADE)
