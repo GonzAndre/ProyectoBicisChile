@@ -75,6 +75,9 @@
     <div class="col">
         <center>Abonar garantia</center>
         <hr>
+        <div id ="Monto_garantia">
+
+        </div>
         <div id="div_pago" class="no_pagado" style="text-align: center;margin:2%;">
 
             <button type="button" class="btn btn-primary active" id="tarjeta_credito">Tarjeta de credito</button>
@@ -120,6 +123,10 @@ $( document ).ready(function() {
   // });
 
   bicis = getCookie('bicis');
+  garantia = Number(getCookie('garantia'))
+  $("#Monto_garantia").html("<center>Total abonar: "+garantia+"</center>");
+
+
   // alert(bicis);
   // console.log("{% csrf_token %}");
   list_accesorios = []
@@ -127,14 +134,20 @@ $( document ).ready(function() {
   $( "#Accesorio{{i.pk}}" ).click(function() {
     // alert( "{{i.pk}}" );
     // var nombreClase = document.getElementById("#Accesorio{{i.pk}}").className
-    if( $("#{{i.pk}}").hasClass('check')){
+    if( $("#Accesorio{{i.pk}}").hasClass('Seleccionado')){
       // alert("CHECKKKK");
-      $("#Accesorio{{i.pk}}").removeClass("check");
+      $("#Accesorio{{i.pk}}").removeClass("Seleccionado");
       // alert("#Accesorio{{i.pk}}"  );
       $("#div{{i.pk}}").remove();
       list_accesorios.pop();
+      garantia = garantia - {{i.Valor}}
+      $("#Monto_garantia").html("<center>Total abonar: "+garantia+"</center>");
+
     }else {
-    $(this).toggleClass("check");
+    $(this).toggleClass("Seleccionado");
+    garantia = garantia + {{i.Valor}}
+    $("#Monto_garantia").html("<center>Total abonar: "+garantia+"</center>");
+
     list_accesorios.push("{{i.pk}}")
   }
 });
