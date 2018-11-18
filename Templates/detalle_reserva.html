@@ -10,15 +10,11 @@
 {% block content %}
 
 <form id="form_detalle_reserva">
-
-<!-- <div class="container row justify-content-md-center">
-  <button style="text-align: center;" type="submit" class=" col-md-12 btn btn-primary">Continuar arriendo</button>
-</div>
-</form> -->
   <div class="container">
   <div class="row">
     <div class="col">
-
+        <center>Detalles de reserva</center>
+        <hr>
       <div class="form-group row">
         <label for="example-datetime-local-input" class="col-5 col-form-label">Fecha y hora de retiro</label>
         <div class="col-7  ">
@@ -59,7 +55,11 @@
         </div>
       </div>
     <!-- check buttons -->
+    <div class="container">
+      Seleccione si necesita accesorios extras
+
       <div class="form-check">
+
         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
         <label class="form-check-label" for="defaultCheck1">
           Casco
@@ -77,19 +77,33 @@
           Coderas
         </label>
       </div>
-
-<!-- fin div row -->
-    <div class="form-check">
-      <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-      <label class="form-check-label" for="defaultCheck1">
-        Acepto los terminos y condiciones
-      </label>
     </div>
+<!-- fin div row -->
+
 
     </div>
     <div class="col">
+        <center>Abonar garantia</center>
+        <hr>
+        <div>
+            <button type="button" class="btn btn-primary active" id="tarjeta_credito">Tarjeta de credito</button>
+            <button type="button" class="btn btn-primary " id ="webpay">Webpay</button>
+        </div>
+        <div id="contenido_pago">
+
+        </div>
+
 
     </div>
+      </div>
+      <center>
+        <div class="form-check">
+          <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            Acepto los terminos y condiciones
+          </label>
+        </div>
+      </center>
     <button style="text-align: center;margin:2%;" type="submit" class=" col-md-11 btn btn-primary">Realizar reserva</button>
 
 </form>
@@ -97,20 +111,33 @@
 
 <script>
 $( document ).ready(function() {
-  alert({{user.pk}});
+  // alert({{user.pk}});
 
   // alert("hola");
   // alert(getCookie('bicis'));
+  $("#tarjeta_credito").click(function(){
+    // alert("hola");
+    $("#contenido_pago").html("<br><div class='container'><div class='row'>Usted va a realizar el pago con tarjeta de credito.</div><div class='row'><button onclick='realizarPago() 'type='button'  id='realizar_pago' class='btn btn-success'>Realizar pago</button></div></div>");
+  });
+  $("#webpay").click(function(){
+    // alert("hola");
+    $("#contenido_pago").html("<br><div class='container'><div class='row'>Usted va a realizar el pago con webpay.</div><div class='row'><button onclick='realizarPago() 'type='button'  id='realizar_pago' class='btn btn-success'>Realizar pago</button></div></div>");
+  });
+  // $("#realizar_pago").click(function(){
+  //   alert("hola");
+  //   $("#contenido_pago").html('<div  class="icon" style="text-align: center"><i class="fa fa-spinner fa-pulse"></i></div>');
+  // });
+
   bicis = getCookie('bicis');
   // alert(bicis);
   // console.log("{% csrf_token %}");
   $('#form_detalle_reserva').submit(function(){
-  alert("holsa");
+  // alert("holsa");
   var fecha_retiro=$('#fecha_retiro').val().split('-');
   var fecha_entrega=$('#fecha_entrega').val().split('-');
   var sucursal_retiro=$('#sucursal_retiro').val();
   var sucursal_entrega=$('#sucursal_entrega').val();
-  alert('RETIRO'+sucursal_retiro);
+  // alert('RETIRO'+sucursal_retiro);
   alert('ENTREGA'+sucursal_entrega);
   // var anho_retiro = fecha[0];
   // var mes_retiro = fecha[1];
@@ -158,6 +185,21 @@ $( document ).ready(function() {
   return false;
   });
 });
+</script>
+<script>
+function realizarPago() {
+  $("#contenido_pago").html('<br><div  class="icon" style="text-align: center"><i class="fa fa-spinner fa-pulse"></i></div>')
+  setTimeout(function(){ $("#contenido_pago").html('<br>Pago Realizado exitosamente'); }, 3000);
+};
+
+// function fafaIcon(){
+//   $("#contenido_pago").html('<div  class="icon" style="text-align: center"><i class="fa fa-spinner fa-pulse"></i></div>');
+//
+// };
+</script>
+
+</script>
+
 </script>
 sdfdsf
 {% endblock %}
