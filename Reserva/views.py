@@ -40,11 +40,17 @@ def detalle_reserva(request):
 		sucursal_retiro = request.POST['sucursal_retiro']
 		sucursal_entrega = request.POST['sucursal_entrega']
 		fecha_retiro = request.POST['fecha_retiro']
+		accesorios = request.POST['accesorios']
 		cont = 0
 		fecha_retiro_final=""
 		hora_retiro_final=""
 
 		#haciendo formato de bd retiro
+
+			# class Detalles_accesorios(models.Model):
+			#     Reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
+			#     Accesorio = models.ForeignKey(Accesorio, on_delete=models.CASCADE)
+
 		for i in fecha_retiro.split(","):
 			print("fecha retiro: " + i)
 			if (cont==0):
@@ -115,7 +121,10 @@ def detalle_reserva(request):
 					detalle = Detalles_reserva(Cantidad = cantidad, Bicicleta = bicicleta, Reserva = reserva)
 					detalle.save()
 
-
+		for i in accesorios.split(","):
+			acc = Accesorio.objects.get(pk=i)
+			detalle = Detalles_accesorios(Reserva = reserva, Accesorio = acc)
+			detalle.save()
 
 
 
