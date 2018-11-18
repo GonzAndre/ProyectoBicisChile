@@ -75,7 +75,8 @@
     <div class="col">
         <center>Abonar garantia</center>
         <hr>
-        <div style="text-align: center;margin:2%;">
+        <div id="div_pago" class="no_pagado" style="text-align: center;margin:2%;">
+
             <button type="button" class="btn btn-primary active" id="tarjeta_credito">Tarjeta de credito</button>
             <button type="button" class="btn btn-primary " id ="webpay">Webpay</button>
         </div>
@@ -139,8 +140,13 @@ $( document ).ready(function() {
   }
 });
   {% endfor %}
+
   $('#form_detalle_reserva').submit(function(){
     alert(list_accesorios);
+    if( $("#div_pago").hasClass('no_pagado')){
+      // alert("CHECKKKK");
+      alert("debe completar el pago primero");
+    }
   // alert("holsa");
   // {% for i in accesorios %}
   // var a = $('#Accesorio{{i.pk}}').val()

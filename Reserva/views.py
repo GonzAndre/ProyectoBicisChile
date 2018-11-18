@@ -40,7 +40,10 @@ def detalle_reserva(request):
 		sucursal_retiro = request.POST['sucursal_retiro']
 		sucursal_entrega = request.POST['sucursal_entrega']
 		fecha_retiro = request.POST['fecha_retiro']
-		accesorios = request.POST['accesorios']
+		if(request.POST['accesorios'] != ''):
+			accesorios = request.POST['accesorios']
+		else:
+			accesorios ="vacio"
 		cont = 0
 		fecha_retiro_final=""
 		hora_retiro_final=""
@@ -120,11 +123,11 @@ def detalle_reserva(request):
 					bicicleta = Bicicleta.objects.get(pk=pk_bici)
 					detalle = Detalles_reserva(Cantidad = cantidad, Bicicleta = bicicleta, Reserva = reserva)
 					detalle.save()
-
-		for i in accesorios.split(","):
-			acc = Accesorio.objects.get(pk=i)
-			detalle = Detalles_accesorios(Reserva = reserva, Accesorio = acc)
-			detalle.save()
+		if (accesorios != 'vacio'):
+			for i in accesorios.split(","):
+				acc = Accesorio.objects.get(pk=i)
+				detalle = Detalles_accesorios(Reserva = reserva, Accesorio = acc)
+				detalle.save()
 
 
 
