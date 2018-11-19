@@ -75,9 +75,9 @@ display: none;
 
 }
 </style>
-<h2>Sucursal inicio</h2>
 
 <div id="myBtnContainer">
+  <h3>Sucursal inicio</h3>
   {% for i in sucursales %}
 
   <button id="sucursal{{i.pk}}" class="btn" onclick="filterSelection('sucursal{{i.pk}}')"> {{i.Nombre}}</button>
@@ -167,6 +167,14 @@ $( document ).ready(function() {
     console.log( "document loaded" );
     garantia_monto = 0
     // alert("HOLA");
+    {% for i in sucursales %}
+      $("#sucursal{{i.pk}}").click(function(){
+        // alert("hola");
+        $("#myBtnContainer").html("<h3>Seleccione las bicicletas a reservar en {{i.Nombre}}<h3>")
+        setCookie("sucursal_retiro",String({{i.pk}}),30)
+
+      });
+    {% endfor %}
     {% for i in bicicletas %}
     $( "#img{{i.pk}}" ).click(function() {
       // alert( "{{i.pk}}" );
@@ -216,7 +224,7 @@ $( document ).ready(function() {
     if (a != undefined){
       // alert("SI TIENE!!");
       // alert ("A:"+ a + "PK:" + {{i.pk}});
-      list_bicis_stock.push(a +"-"+ "{{i.pk}}");
+      list_bicis_stock.push(a +"-"+ "{{i.pk}}" + "{{i.Sucursal.pk}}");
     }
     // alert(a);
       // alert( "{{i.pk}}" );
