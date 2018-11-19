@@ -22,6 +22,9 @@ def reservar_bici(request):
 	data={}
 	template_name = "reserva.html"
 	data["bicicletas"]=Bicicleta.objects.all()
+	sucursales = Sucursal.objects.all()
+	data['sucursales'] = sucursales
+
 	return render(request, template_name,data)
 
 @login_required(login_url='/auth/login')
